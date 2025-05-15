@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ロータリーエンコーダシミュレーター</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ロータリーエンコーダシミュレーター</h1>
+        
+        <div class="simulator">
+            <div class="encoder-container">
+                <div class="encoder" id="encoder">
+                    <div class="encoder-disc">
+                        <!-- 単一の円を16個のセグメント（22.5度ずつ）に分割 -->
+                        <div class="segments">
+                            <!-- ロータリーエンコーダの標準的なパターン：逆順グレイコード（00→10→11→01→00） -->
+                            <!-- 4セグメントごとに1サイクル、4サイクル分（合計16セグメント） -->
+                            
+                            <!-- 1サイクル目 -->
+                            <!-- 状態 00 -->
+                            <div class="segment on" data-a="0" data-b="0"></div>
+                            <!-- 状態 10 -->
+                            <div class="segment off" data-a="1" data-b="0"></div>
+                            <!-- 状態 11 -->
+                            <div class="segment on" data-a="1" data-b="1"></div>
+                            <!-- 状態 01 -->
+                            <div class="segment off" data-a="0" data-b="1"></div>
+                            
+                            <!-- 2サイクル目 -->
+                            <!-- 状態 00 -->
+                            <div class="segment on" data-a="0" data-b="0"></div>
+                            <!-- 状態 10 -->
+                            <div class="segment off" data-a="1" data-b="0"></div>
+                            <!-- 状態 11 -->
+                            <div class="segment on" data-a="1" data-b="1"></div>
+                            <!-- 状態 01 -->
+                            <div class="segment off" data-a="0" data-b="1"></div>
+                            
+                            <!-- 3サイクル目 -->
+                            <!-- 状態 00 -->
+                            <div class="segment on" data-a="0" data-b="0"></div>
+                            <!-- 状態 10 -->
+                            <div class="segment off" data-a="1" data-b="0"></div>
+                            <!-- 状態 11 -->
+                            <div class="segment on" data-a="1" data-b="1"></div>
+                            <!-- 状態 01 -->
+                            <div class="segment off" data-a="0" data-b="1"></div>
+                            
+                            <!-- 4サイクル目 -->
+                            <!-- 状態 00 -->
+                            <div class="segment on" data-a="0" data-b="0"></div>
+                            <!-- 状態 10 -->
+                            <div class="segment off" data-a="1" data-b="0"></div>
+                            <!-- 状態 11 -->
+                            <div class="segment on" data-a="1" data-b="1"></div>
+                            <!-- 状態 01 -->
+                            <div class="segment off" data-a="0" data-b="1"></div>
+                        </div>
+                        <div class="marker">↑</div>
+                    </div>
+                    <div class="sensors">
+                        <div class="sensor sensor-a" id="sensor-a">
+                            <div class="sensor-light"></div>
+                        </div>
+                        <div class="sensor sensor-b" id="sensor-b">
+                            <div class="sensor-light"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-knob" id="control-knob">
+                    <div class="knob-handle"></div>
+                </div>
+            </div>
+            
+            <div class="output-section">
+                <div class="signals">
+                    <div class="signal-label">A信号:</div>
+                    <div class="signal-wave" id="signal-a-wave"></div>
+                    <div class="signal-value" id="signal-a-value">OFF</div>
+                </div>
+                <div class="signals">
+                    <div class="signal-label">B信号:</div>
+                    <div class="signal-wave" id="signal-b-wave"></div>
+                    <div class="signal-value" id="signal-b-value">OFF</div>
+                </div>
+                <div class="direction-indicator">
+                    <span>回転方向: </span>
+                    <span id="direction-value">停止</span>
+                </div>
+                <div class="counter">
+                    <span>カウント値: </span>
+                    <span id="counter-value">0</span>
+                </div>
+                <div class="rotation-counter">
+                    <span>回転数: </span>
+                    <span id="rotation-value">0</span>
+                </div>
+                <div class="last-edge">
+                    <span>最後の変化: </span>
+                    <span id="last-edge-value">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <h2>ロータリーエンコーダの仕組み</h2>
+            <p>ロータリーエンコーダは回転の動きを電気信号に変換するセンサーです。</p>
+            <p>主要な構成要素:</p>
+            <ul>
+                <li><strong>円盤:</strong> 白とグレーのパターンが交互に配置されています</li>
+                <li><strong>光センサー:</strong> 通常はA相とB相の2つのセンサーがあり、90度の位相差があります</li>
+            </ul>
+            <p>動作原理:</p>
+            <ul>
+                <li>円盤が回転すると、グレーの部分がセンサーの位置に来たときに光が反射してセンサーが反応します</li>
+                <li>A相とB相の信号の順序から回転方向を検出できます</li>
+                <li>信号の立ち上がりと立ち下がりをカウントして、位置や回転量を測定します</li>
+                <li>16回のパターン変化で1回転となります（このシミュレーターでは）</li>
+            </ul>
+            <p>上のシミュレーターをマウスでドラッグして回転させることができます。</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
